@@ -33,8 +33,9 @@ export class ArticleController {
 
   @Get()
   @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  findAll() {
-    return this.articleService.findAll();
+  async findAll() {
+    const articles = await this.articleService.findAll();
+    return articles.map((article) => new ArticleEntity(article)); // filter password property from user relation
   }
 
   @Get(':id')
